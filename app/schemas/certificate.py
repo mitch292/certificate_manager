@@ -29,8 +29,7 @@ class CertificateInDBBase(CertificateBase):
     id: Optional[UUID4] = None
     active: bool
     expires_at: datetime
-
-
+    certificate_body: bytes
     class Config:
         orm_mode = True
 

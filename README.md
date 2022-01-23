@@ -1,6 +1,6 @@
 TODO:
 - Create readme
-- Introduce black
+- Introduce black, pysort, any other linter/formatter i need
 - Could put piece about influce from the cookie cutter project
 
 - Install nixos

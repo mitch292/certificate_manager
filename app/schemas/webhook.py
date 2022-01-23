@@ -10,7 +10,6 @@ class WebhookBase(BaseModel):
 # Properties to receive via API on creation
 class WebhookCreate(WebhookBase):
     url: str
-    Webhook_id: UUID4
 
 
 # Properties to receive via API on update

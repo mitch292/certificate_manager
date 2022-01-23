@@ -102,10 +102,10 @@ def update_user(
             status_code=404,
             detail="The certificate with this username does not exist in the system",
         )
-    updated_cert = crud.certificate.update(db, certificate_in)
+    updated_cert = crud.certificate.update(db, db_obj=certificate, obj_in=certificate_in)
     cert_manager = CertificateManager(db, certificate)
     webhooks = cert_manager.get_webhooks_to_notify()
     for webhook in webhooks:
-        background_tasks.add_task(send_webhook, url=f"{webhook}?active={updated_cert.active}&alias={updated_cert.alias}")
+        background_tasks.add_task(send_webhook, url=webhook.url, cert=updated_cert)
 
     return updated_cert
