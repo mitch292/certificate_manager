@@ -1,7 +1,8 @@
-from typing import Optional
 from datetime import datetime
+from typing import Optional
 
-from pydantic import BaseModel, UUID4
+from pydantic import UUID4, BaseModel
+
 
 # Shared properties
 class CertificateBase(BaseModel):
@@ -18,6 +19,7 @@ class CertificateUpdate(CertificateBase):
     alias: Optional[str] = None
     active: Optional[bool] = True
 
+
 class CertificateCreateInDB(CertificateBase):
     private_key: bytes
     active: bool
@@ -25,11 +27,13 @@ class CertificateCreateInDB(CertificateBase):
     certificate_body: bytes
     private_key: bytes
 
+
 class CertificateInDBBase(CertificateBase):
     id: Optional[UUID4] = None
     active: bool
     expires_at: datetime
     certificate_body: bytes
+
     class Config:
         orm_mode = True
 

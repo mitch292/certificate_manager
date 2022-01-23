@@ -8,6 +8,7 @@ from app.api import deps
 
 router = APIRouter()
 
+
 @router.get("/", response_model=List[schemas.User])
 def read_users(
     db: Session = Depends(deps.get_db),
@@ -72,6 +73,7 @@ def update_user(
         )
     user = crud.user.update(db, db_obj=user, obj_in=user_in)
     return user
+
 
 @router.delete("/{user_id}", response_model=schemas.User)
 def delete_user(

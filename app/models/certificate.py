@@ -8,12 +8,13 @@ from sqlalchemy.orm import relationship
 from app.db.base_class import Base
 
 if TYPE_CHECKING:
-    from .webhook import Webhook  # noqa: F401
     from .user import User  # noqa: F401
+    from .webhook import Webhook  # noqa: F401
+
 
 class Certificate(Base):
     id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    user_id = Column(UUID(as_uuid=True), ForeignKey('user.id'), nullable=False)
+    user_id = Column(UUID(as_uuid=True), ForeignKey("user.id"), nullable=False)
     alias = Column(String, nullable=False)
     private_key = Column(Text, nullable=False)
     certificate_body = Column(Text, nullable=False)

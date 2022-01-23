@@ -9,6 +9,7 @@ from app.service import CertificateGenerator, CertificateManager, send_webhook
 
 router = APIRouter()
 
+
 @router.get("/{user_id}/certificates", response_model=List[schemas.Certificate])
 def read_certificates(
     user_id: str,
@@ -25,11 +26,17 @@ def read_certificates(
             status_code=404,
             detail="The user does not exist.",
         )
-    certificates = crud.certificate.get_multi_by_user(db, user_id=user_id, skip=skip, limit=limit)
+    certificates = crud.certificate.get_multi_by_user(
+        db, user_id=user_id, skip=skip, limit=limit
+    )
     return certificates
 
 
-@router.post("/{user_id}/certificates", response_model=schemas.Certificate, status_code=status.HTTP_201_CREATED)
+@router.post(
+    "/{user_id}/certificates",
+    response_model=schemas.Certificate,
+    status_code=status.HTTP_201_CREATED,
+)
 def create_certificate(
     user_id: str,
     *,
@@ -47,12 +54,16 @@ def create_certificate(
         )
 
     generated_cert = CertificateGenerator(user, certificate_in.alias)
-    certificate = crud.certificate.create_with_user(db, obj_in=generated_cert.to_dict(), user_id=user.id)
+    certificate = crud.certificate.create_with_user(
+        db, obj_in=generated_cert.to_dict(), user_id=user.id
+    )
 
     return certificate
 
 
-@router.get("/{user_id}/certificates/{certificate_id}", response_model=schemas.Certificate)
+@router.get(
+    "/{user_id}/certificates/{certificate_id}", response_model=schemas.Certificate
+)
 def get_certificate_by_id(
     user_id: str,
     certificate_id: str,
@@ -78,8 +89,10 @@ def get_certificate_by_id(
     return certificate
 
 
-@router.put("/{user_id}/certificates/{certificate_id}", response_model=schemas.Certificate)
-def update_user(
+@router.put(
+    "/{user_id}/certificates/{certificate_id}", response_model=schemas.Certificate
+)
+def update_certificate(
     *,
     db: Session = Depends(deps.get_db),
     user_id: str,
@@ -102,7 +115,9 @@ def update_user(
             status_code=404,
             detail="The certificate with this username does not exist in the system",
         )
-    updated_cert = crud.certificate.update(db, db_obj=certificate, obj_in=certificate_in)
+    updated_cert = crud.certificate.update(
+        db, db_obj=certificate, obj_in=certificate_in
+    )
     cert_manager = CertificateManager(db, certificate)
     webhooks = cert_manager.get_webhooks_to_notify()
     for webhook in webhooks:

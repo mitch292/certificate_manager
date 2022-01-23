@@ -3,8 +3,6 @@ TODO:
 - Introduce black, pysort, any other linter/formatter i need
 - Could put piece about influce from the cookie cutter project
 
-- Install nixos
-- nixos-shell default.nix
 - ./create_database.sh
 - source .venv/bin/activate
 - pip install -r requirements.txt

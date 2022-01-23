@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 
-from app.settings import APP_NAME
 from app.api import api_router
+from app.settings import APP_NAME
 
 app = FastAPI(title=APP_NAME)
 

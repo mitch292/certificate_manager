@@ -1,6 +1,7 @@
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr, UUID4
+from pydantic import UUID4, BaseModel
+
 
 # Shared properties
 class WebhookBase(BaseModel):
@@ -29,6 +30,7 @@ class WebhookInDBBase(WebhookBase):
 # Additional properties to return via API
 class WebhookInDB(WebhookInDBBase):
     pass
+
 
 class Webhook(WebhookInDBBase):
     pass

@@ -31,4 +31,5 @@ class CRUDItem(CRUDBase[Certificate, CertificateCreateInDB, CertificateUpdate]):
             .all()
         )
 
+
 certificate = CRUDItem(Certificate)
